@@ -1,0 +1,13 @@
+server:
+    build: ./server
+    ports:
+        - 8000:8000
+    volumes:
+        - ./scoring_engine:/opt/scoring_engine
+
+worker:
+    build: ./worker
+    volumes:
+        - ./scoring_engine:/opt/scoring_engine
+    links:
+        - server
