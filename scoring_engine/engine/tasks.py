@@ -13,3 +13,8 @@ logger = logging.getLogger(__name__)
 def score(service_id):
     service = models.Service.objects.get(id=service_id)
     logger.debug('scoring %s for %s with %s' % (service, service.team, service.plugin))
+
+    # score me
+
+    result = models.Result(service=service, status=models.Result.PASSED)
+    result.save()

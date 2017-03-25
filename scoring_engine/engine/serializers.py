@@ -15,7 +15,7 @@ class PluginSerializer(serializers.HyperlinkedModelSerializer):
 class TeamSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Team
-        fields = ('name', 'services', 'results')
+        fields = ('name', 'services')
 
 
 class ServiceSerializer(serializers.HyperlinkedModelSerializer):
@@ -33,4 +33,4 @@ class CredentialSerializer(serializers.HyperlinkedModelSerializer):
 class ResultSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Result
-        fields = ('status', 'team', 'service')
+        fields = ('status', 'service')

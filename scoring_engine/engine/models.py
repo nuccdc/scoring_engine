@@ -57,7 +57,6 @@ class Result(models.Model):
 
     status = models.CharField(max_length=10, choices=RESULT_CHOICES)
 
-    team = models.ForeignKey('Team', on_delete=models.CASCADE, related_name='results')
     service = models.ForeignKey('Service', on_delete=models.CASCADE, related_name='results')
 
     def __str__(self):
