@@ -1,4 +1,0 @@
-python-pip
-python-dev
-build-essential
-git

@@ -11,7 +11,8 @@ server:
         - queue
 
 worker:
-    build: ./worker
+    build: ./server
+    command: celery -A scoring_engine worker -l info
     volumes:
         - ./scoring_engine:/opt/scoring_engine
     links:

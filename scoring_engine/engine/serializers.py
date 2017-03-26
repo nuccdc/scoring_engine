@@ -9,28 +9,29 @@ import models
 class PluginSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Plugin
-        fields = ('name', )
+        fields = ('id', 'name', )
 
 
 class TeamSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Team
-        fields = ('name', 'services')
+        fields = ('id', 'name', 'services')
 
 
 class ServiceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Service
-        fields = ('name', 'address', 'port', 'plugin', 'team')
+        fields = ('id', 'name', 'address', 'port', 'plugin', 'team', 'credentials', 'results')
+        read_only_fields = ('results', )
 
 
 class CredentialSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Credential
-        fields = ('username', 'password', 'service')
+        fields = ('id', 'username', 'password', 'service')
 
 
 class ResultSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Result
-        fields = ('status', 'service', 'explanation')
+        fields = ('id', 'status', 'service', 'explanation')
