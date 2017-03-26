@@ -8,14 +8,14 @@ class Plugin(models.Model):
     name = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
-        return '{}'.format(self.name)
+        return '%s: %s' % (self.__class__.__name__, self.name)
 
 
 class Team(models.Model):
     name = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
-        return '{}, id={}'.format(self.name, self.id)
+        return '%s: %s' % (self.__class__.__name__, self.name)
 
 
 class Service(models.Model):
@@ -27,7 +27,8 @@ class Service(models.Model):
     team = models.ForeignKey('Team', on_delete=models.CASCADE, related_name='services')
 
     def __str__(self):
-        return '{} ip={}, port={}, plugin={}'.format(
+        return '%s: %s %s:%d %s' % (
+            self.__class__.__name__,
             self.name,
             self.address,
             self.port,
@@ -42,7 +43,7 @@ class Credential(models.Model):
     service = models.ForeignKey('Service', on_delete=models.CASCADE, related_name='credentials')
 
     def __str__(self):
-        return '{}:{}'.format(self.username, self.password)
+        return '%s: %s:%s' % (self.__class__.__name__, self.username, self.password)
 
 
 class Result(models.Model):
@@ -56,8 +57,9 @@ class Result(models.Model):
     )
 
     status = models.CharField(max_length=10, choices=RESULT_CHOICES)
+    explanation = models.CharField(max_length=25, blank=True)
 
     service = models.ForeignKey('Service', on_delete=models.CASCADE, related_name='results')
 
     def __str__(self):
-        return '{}'.format('PASSED' if self.status else 'FAILED')
+        return '%s: %s (%s)' % (self.__class__.__name__, self.status, self.explanation)

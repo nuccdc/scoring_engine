@@ -33,4 +33,4 @@ class CredentialSerializer(serializers.HyperlinkedModelSerializer):
 class ResultSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Result
-        fields = ('status', 'service')
+        fields = ('status', 'service', 'explanation')

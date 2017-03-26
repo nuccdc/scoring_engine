@@ -1,0 +1,8 @@
+[26/Mar/2017 18:46:47] DEBUG [tasks] scoring google_ping ip=8.8.8.8, port=0, plugin=ping for NUCCDC, id=1 with ping
+[26/Mar/2017 18:46:47] ERROR [tasks] global name 'p' is not defined
+Traceback (most recent call last):
+  File "/opt/scoring_engine/engine/tasks.py", line 23, in score
+    success, explanation = p.run(service)
+NameError: global name 'p' is not defined
+[26/Mar/2017 18:48:47] DEBUG [tasks] scoring google_ping ip=8.8.8.8, port=0, plugin=ping for NUCCDC, id=1 with ping
+[26/Mar/2017 19:01:50] DEBUG [tasks] scoring Service: google_ping 8.8.8.8:0 Plugin: ping for Team: NUCCDC with Plugin: ping using None
