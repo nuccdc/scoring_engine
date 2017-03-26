@@ -6,3 +6,5 @@ Traceback (most recent call last):
 NameError: global name 'p' is not defined
 [26/Mar/2017 18:48:47] DEBUG [tasks] scoring google_ping ip=8.8.8.8, port=0, plugin=ping for NUCCDC, id=1 with ping
 [26/Mar/2017 19:01:50] DEBUG [tasks] scoring Service: google_ping 8.8.8.8:0 Plugin: ping for Team: NUCCDC with Plugin: ping using None
+[26/Mar/2017 19:43:06] DEBUG [tasks] scoring Service: google_dns 8.8.8.8:53 Plugin: dns for Team: NUCCDC with Plugin: dns using None
+[26/Mar/2017 19:43:32] DEBUG [tasks] scoring Service: google_dns 8.8.8.8:53 Plugin: dns for Team: NUCCDC with Plugin: dns using None
