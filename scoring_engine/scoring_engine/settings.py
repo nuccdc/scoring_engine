@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'scoring_engine.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'scoring_engine',
+        'USER': 'scoring_engine',
+        'PASSWORD': 'scoring_engine',
+        'HOST': 'database',
+        'PORT': '',
     }
 }
 
@@ -108,8 +112,8 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format' : "[%(asctime)s] %(levelname)s [%(module)s] %(message)s",
-            'datefmt' : "%d/%b/%Y %H:%M:%S",
+            'format': "[%(asctime)s] %(levelname)s [%(module)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S",
         },
     },
     'filters': {

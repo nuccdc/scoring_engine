@@ -12,6 +12,18 @@ class PluginSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name', )
 
 
+class ScoredServiceSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.ScoredService
+        fields = ('id', 'name', 'plugin', 'checks', 'services')
+
+
+class CheckSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Check
+        fields = ('id', 'key', 'value', 'scored_service')
+
+
 class TeamSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Team
@@ -21,7 +33,7 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
 class ServiceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Service
-        fields = ('id', 'name', 'address', 'port', 'plugin', 'team', 'credentials', 'results')
+        fields = ('id', 'scored_service', 'address', 'port', 'team', 'credentials', 'results')
         read_only_fields = ('results', )
 
 

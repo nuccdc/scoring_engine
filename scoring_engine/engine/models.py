@@ -2,6 +2,7 @@
 '''
 
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 
 
 class Plugin(models.Model):
@@ -9,6 +10,33 @@ class Plugin(models.Model):
 
     def __str__(self):
         return '%s: %s' % (self.__class__.__name__, self.name)
+
+
+class ScoredService(models.Model):
+    name = models.CharField(max_length=20)
+
+    plugin = models.ForeignKey('Plugin', on_delete=models.CASCADE, related_name='scored_services')
+
+    def __str__(self):
+        return '%s: %s %s' % (
+            self.__class__.__name__,
+            self.name,
+            self.plugin
+        )
+
+
+class Check(models.Model):
+    key = models.CharField(max_length=20)
+    value = models.TextField()
+
+    scored_service = models.ForeignKey('ScoredService', on_delete=models.CASCADE, related_name='checks')
+
+    def __str__(self):
+        return '%s: %s %s' % (
+            self.__class__.__name__,
+            self.key,
+            self.value
+        )
 
 
 class Team(models.Model):
@@ -19,20 +47,19 @@ class Team(models.Model):
 
 
 class Service(models.Model):
-    name = models.CharField(max_length=20)
     address = models.GenericIPAddressField()
     port = models.PositiveIntegerField()
 
-    plugin = models.ForeignKey('Plugin', on_delete=models.CASCADE, related_name='services')
+    scored_service = models.ForeignKey('ScoredService', on_delete=models.CASCADE, related_name='services')
     team = models.ForeignKey('Team', on_delete=models.CASCADE, related_name='services')
 
     def __str__(self):
         return '%s: %s %s:%d %s' % (
             self.__class__.__name__,
-            self.name,
+            self.scored_service,
             self.address,
             self.port,
-            self.plugin
+            self.team,
         )
 
 

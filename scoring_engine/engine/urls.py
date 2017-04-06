@@ -8,11 +8,13 @@ from rest_framework import routers
 import views
 
 router = routers.DefaultRouter()
-router.register(r'plugins', views.PluginViewSet)
-router.register(r'teams', views.TeamViewSet)
-router.register(r'services', views.ServiceViewSet)
-router.register(r'credentials', views.CredentialViewSet)
-router.register(r'results', views.ResultViewSet)
+router.register(r'plugin', views.PluginViewSet)
+router.register(r'scored_service', views.ScoredServiceViewSet)
+router.register(r'check', views.CheckViewSet)
+router.register(r'team', views.TeamViewSet)
+router.register(r'service', views.ServiceViewSet)
+router.register(r'credential', views.CredentialViewSet)
+router.register(r'result', views.ResultViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

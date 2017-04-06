@@ -1,20 +1,32 @@
 queue:
     build: ./queue
 
+database:
+    build: ./database
+    # remove me in production
+    ports:
+        - 5432:5432
+    volumes:
+        - scoringengine_database:/var/lib/postgresql
+
 server:
     build: ./server
+    user: scoring_engine
     ports:
         - 8000:8000
     volumes:
         - ./scoring_engine:/opt/scoring_engine
     links:
         - queue
+        - database
 
 worker:
     build: ./server
+    user: worker
     command: celery -A scoring_engine worker -l info
     volumes:
         - ./scoring_engine:/opt/scoring_engine
     links:
-        - server
         - queue
+        - database
+        - server

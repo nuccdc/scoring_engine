@@ -19,4 +19,12 @@ run cat apt-development-requirements.txt | xargs apt -y install
 run pip install --upgrade pip
 run pip install -r pip-requirements.txt
 
+# add unprivileged scoring_engine
+run useradd -ms /bin/bash scoring_engine
+run echo "scoring_engine:scoring_engine" | chpasswd
+
+# add unprivileged worker user
+run useradd -ms /bin/bash worker
+run echo "worker:worker" | chpasswd
+
 cmd python manage.py migrate && python manage.py runserver 0.0.0.0:8000

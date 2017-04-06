@@ -8,23 +8,23 @@ from . import plugin
 from dns import resolver
 from dns.exception import *
 
+
 class Plugin(plugin.Plugin):
     '''
-    A plugin to test DNS resolution.
-    '''
-    
-    # TODO for now this only checks that google.com resolves. Ideally, we
-    # should be able to provide a list of domains and their expected ip
-    # addresses to check against. Perhaps this should be a model with a foreign
-    # key to team - ie DnsRecord. Or maybe it should be stored in a
-    # configuration file, rather than the database.
+    A plugin to test DNS resolution. Checks are required for this plugin and
+    consist of:
 
-    def run(self, service, credential=None):
+    key: [query_type]:[query]
+    value: [expected_resolution]
+    '''
+
+    def run(self, service, credential=None, check=None):
         address = service.address
         port = service.port
-        query = 'google.com'
-        query_type = 'A'
-        expected_response = ''
+
+        query_type = check.key.split(':')[0]
+        query = check.key.split(':')[1]
+        expected_response = check.value
 
         res = resolver.Resolver()
         res.nameservers = [address]
@@ -39,14 +39,7 @@ class Plugin(plugin.Plugin):
         except (NXDOMAIN, YXDOMAIN, NoAnswer, NoNameservers) as e:
             return False, 'Server error'
 
-        # TODO once we have a way to store configuration, we should check to
-        # see if the response matches what is expected. For now, just return
-        # True.
-        """
         if response == expected_response:
             return True, ''
         else:
             return False, 'Incorrect response'
-        """
-
-        return True, ''

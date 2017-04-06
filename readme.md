@@ -2,9 +2,23 @@
 
 This project models the scoring engine used in the
 [CCDC](http://www.nationalccdc.org/), with some notable improvements to both
-the front end UI and scalability.
+the front end UI and scalability. It is currently under development and not
+anywhere near a production-ready state and we're actively interested in
+contributors.
 
 ## Scalable Design
+
+![design](/docs/design.png?raw=True)
+
+This scoring engine is built around a [Celery](http://www.celeryproject.org/)
+distributed task queue which allows us to scale scoring workers to whatever
+hardware is available. Individual workers are run as
+[docker](https://www.docker.com/) containers which fetch tasks from a
+[RabbitMQ](https://www.rabbitmq.com/) server. Scoring results and team
+configuration are stored in a [PostgreSQL](https://www.postgresql.org/)
+database and accessed via a [Django](https://www.djangoproject.com/) front end.
+All servers are run as docker containers and managed by [Docker
+Compose](https://docs.docker.com/compose/).
 
 ## Plugins
 
@@ -21,6 +35,15 @@ the front end UI and scalability.
 - MSSQL
 - Ping
 - SSH
+
+### Enabled Plugins
+
+Plugins still need to be ported from our [old scoring
+engine](https://github.com/ainterr/scoring_engine). Currently enabled plugins
+include:
+
+- PING
+- DNS
 
 ### Adding Plugins
 
