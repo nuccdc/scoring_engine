@@ -5,7 +5,6 @@ workdir /opt/scoring_engine/
 
 # copy build files
 copy apt-requirements.txt .
-copy startup.sh .
 # remove me in production
 copy apt-development-requirements.txt .
 
@@ -19,4 +18,7 @@ run cat apt-development-requirements.txt | xargs apt -y install
 run useradd -ms /bin/bash scoring_engine
 run echo "scoring_engine:scoring_engine" | chpasswd
 
-cmd ./startup.sh
+# configure rabbitmq
+copy rabbitmq.config /etc/rabbitmq/
+
+cmd rabbitmq-server
